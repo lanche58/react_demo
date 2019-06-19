@@ -1,23 +1,25 @@
-import React from 'react';
-
-const Child = React.forwardRef((props, ref) => {
-    return (
-        <div ref={ref}>ren rui</div>
-    )
-})
+import React, {Suspense, lazy} from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import RefTest from './ref';
+import ContextTest from './context';
+import HooksTest from './hooks';
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.objRef = React.createRef();
-    }
     render() {
         return (
-            <Child ref={this.objRef}/>
+            <div>
+                <Router>
+                    <div>
+                        <Link to="/">ref</Link>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Link to="/context">context</Link>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Link to="/hooks">hooks</Link>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <Route path="/" exact component={RefTest}></Route>
+                    <Route path="/context" component={ContextTest}></Route>
+                    <Route path="/hooks" component={HooksTest}></Route>
+                </Router>
+            </div>
         )
-    }
-    componentDidMount() {
-        console.log(this.objRef.current);
     }
 }
 
